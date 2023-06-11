@@ -1,20 +1,11 @@
-using Serilog;
-using WeatherForecastModule.ModuleRegistration;
+using Pro.Modular.API.Extensions;
+using WeatherForecastModule.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Use Serilog
-// If needed, Clear default providers
-builder.Logging.ClearProviders();
-builder.Host.UseSerilog((hostContext, services, configuration) => {
-    configuration.WriteTo.Console().WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day);
-});
-
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.AddAndConfigureSerilog();
 builder.ConfigureWeatherForecastModule();
+builder.AddAndConfigureSwagger();
 
 
 var app = builder.Build();
@@ -22,13 +13,24 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();
-app.MapControllers();
+
+app.ConfigureApiRoutes();
+// app.MapControllers();
 
 app.Run();
 
 // Make the implicit Program class public so test projects can access it
-public partial class Program { }
+namespace Pro.Modular.API
+{
+    public class Program
+    {
+    }
+}
