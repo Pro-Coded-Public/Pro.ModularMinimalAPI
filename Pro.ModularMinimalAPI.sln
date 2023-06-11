@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\security-codeql.yml = .github\workflows\security-codeql.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastModule", "WeatherForecastModule\WeatherForecastModule.csproj", "{ADA9F278-9947-42A0-8B3E-1675662EC358}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{0F7F1148-528A-4115-A708-C5A5FD4F1055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F7F1148-528A-4115-A708-C5A5FD4F1055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F7F1148-528A-4115-A708-C5A5FD4F1055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
