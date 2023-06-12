@@ -1,9 +1,11 @@
+using ExampleModule.Extensions;
 using Pro.Modular.API.Extensions;
 using WeatherForecastModule.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddAndConfigureSerilog();
+builder.ConfigureExampleModule();
 builder.ConfigureWeatherForecastModule();
 builder.AddAndConfigureSwagger();
 builder.Services.AddProblemDetails();
@@ -30,7 +32,8 @@ else
 
 app.UseHttpsRedirection();
 
-app.ConfigureApiRoutes();
+app.ConfigureExampleModuleEndPoints();
+app.ConfigureWeatherForecastEndPoints();
 
 app.Run();
 

@@ -8,20 +8,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Codewrinkles.MinimalApi.SmartModules" Version="0.1.4"/>
-        <PackageReference Include="Microsoft.OpenApi" Version="1.6.4"/>
-        <PackageReference Include="Serilog" Version="2.12.0"/>
-        <PackageReference Include="Serilog.AspNetCore" Version="7.0.0"/>
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Codewrinkles.MinimalApi.SmartModules" Version="0.1.4" />
+        <PackageReference Include="Microsoft.OpenApi" Version="1.6.4" />
+        <PackageReference Include="Serilog" Version="2.12.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Modular.Tests"/>
+        <InternalsVisibleTo Include="Modular.Tests" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\WeatherForecastModule\WeatherForecastModule.csproj"/>
+        <ProjectReference Include="..\ExampleModule\ExampleModule.csproj" />
+        <ProjectReference Include="..\WeatherForecastModule\WeatherForecastModule.csproj" />
     </ItemGroup>
 
 </Project>

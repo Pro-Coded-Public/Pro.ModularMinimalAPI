@@ -7,7 +7,7 @@ namespace WeatherForecastModule.Endpoints;
 
 internal static class WeatherForecastEndpoints
 {
-    internal static void RegisterWeatherForecastEndPoints(WebApplication app)
+    internal static void RegisterEndPoints(WebApplication app)
     {
         var weatherForecasts = app.MapGroup("/")
             .WithTags("Weather Forecasts")

@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastModule", "WeatherForecastModule\WeatherForecastModule.csproj", "{ADA9F278-9947-42A0-8B3E-1675662EC358}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleModule", "ExampleModule\ExampleModule.csproj", "{C692B4E2-3977-42A1-90CF-0F92063B84A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA9F278-9947-42A0-8B3E-1675662EC358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
