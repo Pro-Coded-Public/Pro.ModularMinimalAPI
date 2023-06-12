@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace WeatherForecastModule.Endpoints;
+namespace ExampleModule.EndPoints;
 
 internal static class ExampleEndpoints
 {
-    internal static void RegisterExampleEndPoints(WebApplication app)
+    internal static void RegisterEndPoints(WebApplication app)
     {
         var examples = app.MapGroup("/")
             .WithTags("Examples")

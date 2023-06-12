@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,8 +12,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="weathermodulesettings.json"/>
-        <Content Include="weathermodulesettings.json">
+        <Folder Include="Models\"/>
+        <Folder Include="Services\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="examplemodulesettings.json"/>
+        <Content Include="examplemodulesettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

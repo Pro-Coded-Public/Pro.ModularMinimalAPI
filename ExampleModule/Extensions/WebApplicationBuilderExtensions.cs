@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
-namespace WeatherForecastModule.Extensions;
+namespace ExampleModule.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder AddWeatherForecastModule(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddExampleModule(this WebApplicationBuilder builder)
     {
         builder.ConfigureModuleSettings();
         builder.Services.RegisterControllersAndServices();
@@ -21,7 +21,7 @@ public static class WebApplicationBuilderExtensions
         var directory = Path.GetDirectoryName(assemblyPath);
         var fileProvider = new PhysicalFileProvider(directory ?? throw new InvalidOperationException());
         builder.Services.AddSingleton<IFileProvider>(fileProvider);
-        builder.Configuration.AddJsonFile(fileProvider, "weathermodulesettings.json", false, false);
+        builder.Configuration.AddJsonFile(fileProvider, "examplemodulesettings.json", false, false);
 
         return builder;
     }

@@ -5,10 +5,9 @@ namespace WeatherForecastModule.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication ConfigureApiRoutes(this WebApplication app)
+    public static WebApplication UseWeatherForecastEndPoints(this WebApplication app)
     {
-        ExampleEndpoints.RegisterExampleEndPoints(app);
-        WeatherForecastEndpoints.RegisterWeatherForecastEndPoints(app);
+        WeatherForecastEndpoints.RegisterEndPoints(app);
 
         return app;
     }
