@@ -5,7 +5,7 @@ namespace ExampleModule.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication ConfigureExampleModuleEndPoints(this WebApplication app)
+    public static WebApplication UseExampleModuleEndPoints(this WebApplication app)
     {
         ExampleEndpoints.RegisterEndPoints(app);
 

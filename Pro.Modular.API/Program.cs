@@ -1,39 +1,36 @@
 using ExampleModule.Extensions;
 using Pro.Modular.API.Extensions;
+using Pro.Modular.Shared.Models;
 using WeatherForecastModule.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.ConfigureAppSettings();
 builder.AddAndConfigureSerilog();
-builder.ConfigureExampleModule();
-builder.ConfigureWeatherForecastModule();
 builder.AddAndConfigureSwagger();
 builder.Services.AddProblemDetails();
 
+builder.AddExampleModule();
+builder.AddWeatherForecastModule();
+
+builder.Services.AddOptions<JwtOptions>()
+    .BindConfiguration("JwtOptions")
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.Configure<Logging>(
+    builder.Configuration.GetRequiredSection("Logging"));
+
+var settings = builder.Configuration.GetRequiredSection("JwtOptions").Get<JwtOptions>();
+
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    options.RoutePrefix = string.Empty;
-});
+app.UseSwaggerEndpoint();
+app.UseMiddleware();
+app.UseErrorHandling();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler(exceptionHandlerApp
-        => exceptionHandlerApp.Run(async context => await Results.Problem().ExecuteAsync(context)));
-    app.UseStatusCodePages();
-}
-
-app.UseHttpsRedirection();
-
-app.ConfigureExampleModuleEndPoints();
-app.ConfigureWeatherForecastEndPoints();
+app.UseExampleModuleEndPoints();
+app.UseWeatherForecastEndPoints();
 
 app.Run();
 

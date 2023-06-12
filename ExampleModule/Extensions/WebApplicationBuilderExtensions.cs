@@ -7,7 +7,7 @@ namespace ExampleModule.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder ConfigureExampleModule(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddExampleModule(this WebApplicationBuilder builder)
     {
         builder.ConfigureModuleSettings();
         builder.Services.RegisterControllersAndServices();

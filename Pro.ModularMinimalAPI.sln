@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastModule", "We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleModule", "ExampleModule\ExampleModule.csproj", "{C692B4E2-3977-42A1-90CF-0F92063B84A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pro.Modular.Shared", "Pro.Modular.Shared\Pro.Modular.Shared.csproj", "{1D8D2C7B-1851-43D3-99A1-8DA2BD78B4DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1F1859A9-2644-4272-B03D-1F6BF31BE1AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,10 @@ Global
 		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C692B4E2-3977-42A1-90CF-0F92063B84A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8D2C7B-1851-43D3-99A1-8DA2BD78B4DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8D2C7B-1851-43D3-99A1-8DA2BD78B4DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8D2C7B-1851-43D3-99A1-8DA2BD78B4DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8D2C7B-1851-43D3-99A1-8DA2BD78B4DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +64,7 @@ Global
 		SolutionGuid = {1C95A505-BC6D-42F0-ADFC-032FBE222C4A}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{C692B4E2-3977-42A1-90CF-0F92063B84A9} = {1F1859A9-2644-4272-B03D-1F6BF31BE1AE}
+		{ADA9F278-9947-42A0-8B3E-1675662EC358} = {1F1859A9-2644-4272-B03D-1F6BF31BE1AE}
 	EndGlobalSection
 EndGlobal

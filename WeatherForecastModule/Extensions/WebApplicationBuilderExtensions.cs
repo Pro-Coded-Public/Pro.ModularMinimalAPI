@@ -7,7 +7,7 @@ namespace WeatherForecastModule.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder ConfigureWeatherForecastModule(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddWeatherForecastModule(this WebApplicationBuilder builder)
     {
         builder.ConfigureModuleSettings();
         builder.Services.RegisterControllersAndServices();

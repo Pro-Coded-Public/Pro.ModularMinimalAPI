@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using Pro.Modular.Shared.Models;
 
 namespace Pro.Modular.API.Extensions;
 
@@ -9,13 +10,15 @@ public static class WebApplicationBuilderExtensions
         builder.Logging.ClearProviders();
         builder.Host.UseSerilog((hostContext, services, configuration) =>
         {
-            configuration.WriteTo.Console().WriteTo.File("logs\\log.txt", rollingInterval: RollingInterval.Day);
+            configuration.ReadFrom.Configuration(hostContext.Configuration);
         });
         return builder;
     }
 
     public static WebApplicationBuilder AddAndConfigureSwagger(this WebApplicationBuilder builder)
     {
+        var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
+
         builder.Services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo
@@ -31,13 +34,42 @@ public static class WebApplicationBuilderExtensions
                 },
                 License = new OpenApiLicense
                 {
-                    Name = "Example License",
-                    Url = new Uri("https://example.com/license")
+                    Name = "Example License"
+                }
+            });
+
+            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            {
+                Description = "OAuth2.0 Auth Code with PKCE",
+                Name = "oauth2",
+                Type = SecuritySchemeType.OAuth2,
+                Flows = new OpenApiOAuthFlows
+                {
+                    AuthorizationCode = new OpenApiOAuthFlow
+                    {
+                        AuthorizationUrl = new Uri(jwtOptions.AuthorizationUrl),
+                        TokenUrl = new Uri(jwtOptions.TokenUrl),
+                        Scopes = new Dictionary<string, string>
+                        {
+                            { jwtOptions.ApiScope, "read the api" }
+                        }
+                    }
+                }
+            });
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                    },
+                    new[] { jwtOptions.ApiScope }
                 }
             });
         });
 
         builder.Services.AddEndpointsApiExplorer();
+
         return builder;
     }
 }
