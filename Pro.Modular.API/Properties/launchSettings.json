@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Modular.API": {
+    "Modular.API Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -19,6 +19,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+      "Modular.API Production": {
+        "commandName": "Project",
+        "dotnetRunMessages": true,
+        "launchBrowser": true,
+        "launchUrl": "",
+        "applicationUrl": "https://localhost:7095;http://localhost:5095",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Production"
+        }
+      },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

@@ -6,24 +6,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddAndConfigureSerilog();
 builder.ConfigureWeatherForecastModule();
 builder.AddAndConfigureSwagger();
-
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        options.RoutePrefix = string.Empty;
-    });
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler(exceptionHandlerApp
+        => exceptionHandlerApp.Run(async context => await Results.Problem().ExecuteAsync(context)));
+    app.UseStatusCodePages();
 }
 
 app.UseHttpsRedirection();
 
 app.ConfigureApiRoutes();
-// app.MapControllers();
 
 app.Run();
 
