@@ -1,6 +1,4 @@
-﻿using Pro.Modular.Shared.Models;
-
-namespace Pro.Modular.API.Extensions;
+﻿namespace Pro.Modular.API.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -9,14 +7,17 @@ public static class WebApplicationExtensions
         app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseErrorHandling();
         app.UseHttpsRedirection();
+        app.UseHsts();
         app.UseStaticFiles();
+        app.UseSwaggerEndpoint();
         app.UseRouting();
 
         return app;
     }
 
-    public static WebApplication UseErrorHandling(this WebApplication app)
+    private static WebApplication UseErrorHandling(this WebApplication app)
     {
         if (app.Environment.IsDevelopment())
         {
@@ -32,7 +33,7 @@ public static class WebApplicationExtensions
         return app;
     }
 
-    public static WebApplication UseSwaggerEndpoint(this WebApplication app)
+    private static WebApplication UseSwaggerEndpoint(this WebApplication app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(options =>

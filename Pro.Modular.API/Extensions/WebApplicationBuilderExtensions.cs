@@ -12,6 +12,7 @@ public static class WebApplicationBuilderExtensions
         {
             configuration.ReadFrom.Configuration(hostContext.Configuration);
         });
+
         return builder;
     }
 
@@ -56,6 +57,7 @@ public static class WebApplicationBuilderExtensions
                     }
                 }
             });
+
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {

@@ -9,33 +9,30 @@ public static class HostBuilderExtensions
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var machineName = Environment.MachineName;
 
-        hostBuilder.ConfigureAppConfiguration((ctx, builder) =>
+        hostBuilder.ConfigureAppConfiguration((context, builder) =>
         {
             builder.Sources.Clear();
             builder.AddJsonFile("appsettings.json", false, true);
             builder.AddJsonFile($"appsettings.{environment}.json", true, true);
             builder.AddJsonFile($"appsettings.{machineName}.json", true, true);
             builder.AddEnvironmentVariables();
+            context.Configuration.Bind(builder.Build());
         });
+
+        hostBuilder.ConfigureServices(AddOptions);
 
         return hostBuilder;
     }
 
     private static void AddOptions(HostBuilderContext context, IServiceCollection serviceProvider)
     {
-        var configuration = context.Configuration;
-
-        // .Services.AddOptions<JwtOptions>()
-        //     .Bind(builder.Configuration.GetSection(nameof(JwtOptions)))
-        //     .ValidateDataAnnotations()
-
         serviceProvider.AddOptions<JwtOptions>()
-            .Bind(configuration.GetSection("JwtOptions"))
+            .BindConfiguration("JwtOptions")
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
         serviceProvider.AddOptions<Logging>()
-            .Bind(configuration.GetSection("Logging"))
+            .BindConfiguration("Logging")
             .ValidateDataAnnotations()
             .ValidateOnStart();
     }

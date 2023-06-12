@@ -7,24 +7,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models\" />
-        <Folder Include="Services\" />
+        <Folder Include="Models\"/>
+        <Folder Include="Services\"/>
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="examplemodulesettings.json" />
+        <None Remove="examplemodulesettings.json"/>
         <Content Include="examplemodulesettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
+        <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj"/>
     </ItemGroup>
 
 </Project>
