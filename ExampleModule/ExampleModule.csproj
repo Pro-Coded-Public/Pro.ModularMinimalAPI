@@ -30,7 +30,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="exampleAppSettings.json" />
+      <None Remove="exampleAppSettings.json" />
+      <Content Include="exampleAppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

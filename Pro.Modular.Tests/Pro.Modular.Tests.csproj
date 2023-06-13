@@ -11,10 +11,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="6.7.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.6"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="FluentAssertions" Version="6.7.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.6" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -26,11 +26,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Fixtures"/>
+        <Folder Include="Fixtures" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <OutputPath>bin\</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Pro.Modular.API\Pro.Modular.API.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Pro.Modular.API\Pro.Modular.API.csproj"/>
+      <None Remove="exampleAppSettings.json" />
+      <None Remove="weatherForecastAppSettings.json" />
+      <Content Update="ExampleModule\exampleAppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="WeatherForecastModule\weatherForecastAppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
