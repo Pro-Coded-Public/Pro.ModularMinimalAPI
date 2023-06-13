@@ -43,5 +43,5 @@ public class Module : IModule
     }
 
 
-    public string settingsFileName => @"..\WeatherForecastModule\weatherForecastAppSettings.json";
+    public string settingsFileName => @"../WeatherForecastModule\weatherForecastAppSettings.json";
 }

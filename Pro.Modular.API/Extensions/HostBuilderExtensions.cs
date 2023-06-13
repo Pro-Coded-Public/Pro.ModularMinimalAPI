@@ -13,7 +13,7 @@ public static class HostBuilderExtensions
         {
             builder.Sources.Clear();
             foreach (var module in ModuleExtensions.DiscoverdModules)
-                builder.AddJsonFile(Path.GetFullPath(Path.Combine(module.settingsFileName)), false, true);
+                builder.AddJsonFile(Path.GetFullPath(module.settingsFileName), false, true);
             builder.AddJsonFile("appsettings.json", false, true);
             builder.AddJsonFile($"appsettings.{environment}.json", true, true);
             builder.AddJsonFile($"appsettings.{machineName}.json", true, true);
