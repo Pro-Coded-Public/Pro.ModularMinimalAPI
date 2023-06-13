@@ -33,5 +33,5 @@ public class Module : IModule
     }
 
 
-    public string settingsFileName => @"../ExampleModule\exampleAppSettings.json";
+    public string settingsFileName => @"../ExampleModule/exampleAppSettings.json";
 }
