@@ -5,7 +5,19 @@ namespace Pro.Modular.API.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder AddAndConfigureSerilog(this WebApplicationBuilder builder)
+    internal static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+    {
+        builder.AddAndConfigureSerilog();
+        builder.AddAndConfigureSwagger();
+        builder.Services.AddProblemDetails();
+        builder.Services.AddCors();
+        builder.Services.AddAuthentication();
+        builder.Services.AddAuthorization();
+        
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddAndConfigureSerilog(this WebApplicationBuilder builder)
     {
         builder.Logging.ClearProviders();
         builder.Host.UseSerilog((hostContext, services, configuration) =>
@@ -16,7 +28,7 @@ public static class WebApplicationBuilderExtensions
         return builder;
     }
 
-    public static WebApplicationBuilder AddAndConfigureSwagger(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddAndConfigureSwagger(this WebApplicationBuilder builder)
     {
         var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
 

@@ -1,0 +1,12 @@
+{
+  "ExampleModule": {
+    "SampleMessage": "Hello from the example module settings, David!",
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "AllowedHosts": "*"
+  }
+}
