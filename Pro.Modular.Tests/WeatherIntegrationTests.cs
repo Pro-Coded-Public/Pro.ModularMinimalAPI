@@ -8,7 +8,7 @@ public class WeatherIntegrationTests
     public async Task GET_retrieves_weather_forecast()
     {
         var api = new ApiWebApplicationFactory();
-        var forecast = await api.CreateClient().GetFromJsonAsync<WeatherForecast[]>("/weatherforecasts");
+        var forecast = await api.CreateClient().GetFromJsonAsync<WeatherForecast[]>("/weather/weatherforecasts");
         forecast.Should().HaveCount(5);
     }
 }

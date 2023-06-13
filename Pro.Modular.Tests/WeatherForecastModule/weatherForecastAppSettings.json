@@ -1,0 +1,12 @@
+{
+  "WeatherForecast": {
+    "SampleMessage": "Hello from the weather forecast module settings, David!",
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "AllowedHosts": "*"
+  }
+}
