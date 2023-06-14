@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Pro.Modular.Shared.Interfaces;
 
-namespace ExampleModule;
+namespace SecureExampleModule;
 
 public class Module : IModule
 {
@@ -16,18 +16,18 @@ public class Module : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var examples = endpoints.MapGroup("/Examples")
-            .WithTags("Examples")
+        var secureExamples = endpoints.MapGroup("/SecureExamples")
+            .WithTags("SecureExamples")
             .WithOpenApi();
 
-        examples.MapGet("/throw/{statusCode?}", Endpoints.ReturnException)
+        secureExamples.MapGet("/throw/{statusCode?}", Endpoints.ReturnException)
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        examples.MapGet("/message", Endpoints.SettingsMessage)
+        secureExamples.MapGet("/message", Endpoints.SettingsMessage)
             .Produces(StatusCodes.Status200OK, typeof(string));
 
         return endpoints;
     }
 
-    public string settingsFileName => @"../ExampleModule/exampleAppSettings.json";
+    public string settingsFileName => @"../SecureExampleModule/secureExampleAppSettings.json";
 }

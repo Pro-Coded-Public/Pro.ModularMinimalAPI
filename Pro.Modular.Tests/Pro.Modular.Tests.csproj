@@ -25,10 +25,6 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Fixtures" />
-    </ItemGroup>
-
     <PropertyGroup>
         <OutputPath>bin\</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -48,6 +44,10 @@
       <Content Update="WeatherForecastModule\weatherForecastAppSettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Fixtures\" />
     </ItemGroup>
 
 </Project>

@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 
-namespace ExampleModule.EndPoints;
+namespace ExampleModule;
 
-internal static class Errors
+internal static class Endpoints
 {
     internal static void ReturnException(int? statusCode)
     {
@@ -15,5 +16,10 @@ internal static class Errors
             null => new Exception("uh oh"),
             _ => new Exception($"Status code {statusCode}")
         };
+    }
+
+    internal static string? SettingsMessage(IConfiguration configuration)
+    {
+        return configuration.GetSection("ExampleModule:SampleMessage").Value;
     }
 }

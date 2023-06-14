@@ -1,0 +1,12 @@
+{
+  "SecureExampleModule": {
+    "SampleMessage": "Hello from the secure example module settings, David!",
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "AllowedHosts": "*"
+  }
+}
