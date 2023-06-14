@@ -13,7 +13,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddCors();
         builder.Services.AddAuthentication();
         builder.Services.AddAuthorization();
-        
+
         return builder;
     }
 
@@ -34,41 +34,43 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Version = "v1",
-                Title = "Sample modular API",
-                Description = "An ASP.NET Core Web API",
-                TermsOfService = new Uri("https://example.com/terms"),
-                Contact = new OpenApiContact
+            options.SwaggerDoc("v1",
+                new OpenApiInfo
                 {
-                    Name = "Example Contact",
-                    Url = new Uri("https://example.com/contact")
-                },
-                License = new OpenApiLicense
-                {
-                    Name = "Example License"
-                }
-            });
-
-            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-            {
-                Description = "OAuth2.0 Auth Code with PKCE",
-                Name = "oauth2",
-                Type = SecuritySchemeType.OAuth2,
-                Flows = new OpenApiOAuthFlows
-                {
-                    AuthorizationCode = new OpenApiOAuthFlow
+                    Version = "v1",
+                    Title = "Sample modular API",
+                    Description = "An ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
                     {
-                        AuthorizationUrl = new Uri(jwtOptions.AuthorizationUrl),
-                        TokenUrl = new Uri(jwtOptions.TokenUrl),
-                        Scopes = new Dictionary<string, string>
+                        Name = "Example Contact",
+                        Url = new Uri("https://example.com/contact")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Example License"
+                    }
+                });
+
+            options.AddSecurityDefinition("oauth2",
+                new OpenApiSecurityScheme
+                {
+                    Description = "OAuth2.0 Auth Code with PKCE",
+                    Name = "oauth2",
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
                         {
-                            { jwtOptions.ApiScope, "read the api" }
+                            AuthorizationUrl = new Uri(jwtOptions.AuthorizationUrl),
+                            TokenUrl = new Uri(jwtOptions.TokenUrl),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { jwtOptions.ApiScope, "read the api" }
+                            }
                         }
                     }
-                }
-            });
+                });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
@@ -80,6 +82,29 @@ public static class WebApplicationBuilderExtensions
                     new[] { jwtOptions.ApiScope }
                 }
             });
+
+            options.AddSecurityDefinition("ApiKey",
+                new OpenApiSecurityScheme
+                {
+                    Description = "The Api Key to access the API",
+                    Name = "X-API-Key",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "ApiKeyScheme"
+                });
+
+            var apiKeyScheme = new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "ApiKey" },
+                In = ParameterLocation.Header
+            };
+
+            var apiKeyRequirement = new OpenApiSecurityRequirement
+            {
+                { apiKeyScheme, new List<string>() }
+            };
+
+            options.AddSecurityRequirement(apiKeyRequirement);
         });
 
         builder.Services.AddEndpointsApiExplorer();

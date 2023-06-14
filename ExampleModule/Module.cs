@@ -1,8 +1,6 @@
-﻿using ExampleModule.EndPoints;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using Pro.Modular.Shared.Interfaces;
 
 namespace ExampleModule;
@@ -11,8 +9,6 @@ public class Module : IModule
 {
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
-        // builder.ConfigureModuleSettings<Module>(settingsFileName);
-
         return builder;
     }
 
@@ -22,16 +18,14 @@ public class Module : IModule
             .WithTags("Examples")
             .WithOpenApi();
 
-        examples.MapGet("/throw/{statusCode?}", Errors.ReturnException)
+        examples.MapGet("/throw/{statusCode?}", Endpoints.ReturnException)
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        examples.MapGet("/message", (IConfiguration configuration) =>
-                configuration.GetSection("ExampleModule:SampleMessage").Value)
+        examples.MapGet("/message", Endpoints.SettingsMessage)
             .Produces(StatusCodes.Status200OK, typeof(string));
 
         return endpoints;
     }
-
 
     public string settingsFileName => @"../ExampleModule/exampleAppSettings.json";
 }

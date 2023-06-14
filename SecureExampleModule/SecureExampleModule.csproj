@@ -7,27 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Pro.Modular.Tests" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
-
+    
     <ItemGroup>
-        <None Remove="examplemodulesettings.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="exampleAppSettings.json" />
-      <Content Include="exampleAppSettings.json">
+      <Content Update="exampleAppSettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+      <None Remove="secureExampleAppSettings.json" />
+      <Content Include="secureExampleAppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
     </ItemGroup>
 
 </Project>
