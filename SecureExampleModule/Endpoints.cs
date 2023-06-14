@@ -1,25 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace SecureExampleModule;
 
 internal static class Endpoints
 {
-    internal static void ReturnException(int? statusCode)
+    internal static string ProtectedMessage(IConfiguration configuration)
     {
-        throw statusCode switch
-        {
-            >= 400 and < 500 => new BadHttpRequestException(
-                $"{statusCode} {ReasonPhrases.GetReasonPhrase(statusCode.Value)}",
-                statusCode.Value),
-            null => new Exception("uh oh"),
-            _ => new Exception($"Status code {statusCode}")
-        };
+        return configuration.GetSection("SecureExampleModule:ProtectedMessage").Value;
     }
 
     internal static string? SettingsMessage(IConfiguration configuration)
     {
-        return configuration.GetSection("ExampleModule:SampleMessage").Value;
+        return configuration.GetSection("SecureExampleModule:SampleMessage").Value;
     }
 }

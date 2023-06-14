@@ -9,8 +9,6 @@ public class Module : IModule
 {
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
-        // builder.ConfigureModuleSettings<Module>(settingsFileName);
-
         return builder;
     }
 

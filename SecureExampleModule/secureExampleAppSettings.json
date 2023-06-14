@@ -1,12 +1,14 @@
 {
   "SecureExampleModule": {
     "SampleMessage": "Hello from the secure example module settings, David!",
+    "ProtectedMessage": "Hello from the secure protected example module settings, David!",
     "Logging": {
       "LogLevel": {
         "Default": "Information",
         "Microsoft.AspNetCore": "Warning"
       }
     },
+    "ApiKey": "123",
     "AllowedHosts": "*"
   }
 }
