@@ -44,10 +44,9 @@
       <Content Update="WeatherForecastModule\weatherForecastAppSettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Fixtures\" />
+      <Content Update="SecureExampleModule\secureExampleAppSettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
