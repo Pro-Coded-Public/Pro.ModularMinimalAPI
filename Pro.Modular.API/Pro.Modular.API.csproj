@@ -26,6 +26,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Modules\ExampleModule\ExampleModule.csproj" />
         <ProjectReference Include="..\Modules\SecureExampleModule\SecureExampleModule.csproj" />
+        <ProjectReference Include="..\Modules\ValidationModule\ValidationModule.csproj" />
         <ProjectReference Include="..\Modules\WeatherForecastModule\WeatherForecastModule.csproj" />
         <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
     </ItemGroup>

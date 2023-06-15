@@ -5,7 +5,11 @@ namespace Pro.Modular.Shared.Interfaces;
 
 public interface IModule
 {
-    string settingsFileName { get; }
+    string ModuleName { get; }
+
+    string SettingsFileName { get; }
+
+    // FileLocation settingsFile { get; }
     WebApplicationBuilder RegisterModule(WebApplicationBuilder builder);
     IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 

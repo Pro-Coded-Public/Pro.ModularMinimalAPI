@@ -6,40 +6,40 @@ namespace Pro.Modular.API.Extensions;
 
 internal static class ModuleExtensions
 {
-    internal static List<IModule> DiscoverdModules = new();
+    internal static List<IModule> DiscoveredModules = new();
 
     internal static WebApplicationBuilder DiscoverModules(this WebApplicationBuilder builder)
     {
-        DiscoverdModules = InterfaceScanner.DiscoverModules().ToList();
+        DiscoveredModules = InterfaceScanner.DiscoverModules().ToList();
 
         return builder;
     }
 
     internal static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder)
     {
-        foreach (var module in DiscoverdModules) module.RegisterModule(builder);
+        foreach (var module in DiscoveredModules) module.RegisterModule(builder);
 
         return builder;
     }  
     
     internal static WebApplicationBuilder BindOptions(this WebApplicationBuilder builder)
     {
-        foreach (var module in DiscoverdModules) module.BindOptions(builder);
+        foreach (var module in DiscoveredModules) module.BindOptions(builder);
         return builder;
     }
 
     internal static WebApplication MapModuleEndpoints(this WebApplication app)
     {
-        foreach (var module in DiscoverdModules) module.MapEndpoints(app);
+        foreach (var module in DiscoveredModules) module.MapEndpoints(app);
         return app;
     }
 
     internal static List<string> GetModuleSettingsFiles(this WebApplicationBuilder builder)
     {
         var settingsFiles = new List<string>();
-        foreach (var module in DiscoverdModules)
-            if (module.settingsFileName is not null)
-                settingsFiles.Add(module.settingsFileName);
+        foreach (var module in DiscoveredModules)
+            if (module.SettingsFileName is not null)
+                settingsFiles.Add(module.SettingsFileName);
 
         return settingsFiles;
     }

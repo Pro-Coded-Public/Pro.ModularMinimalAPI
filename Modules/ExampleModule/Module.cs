@@ -2,11 +2,23 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Pro.Modular.Shared.Interfaces;
+using Pro.Modular.Shared.Models;
 
 namespace ExampleModule;
 
 public class Module : IModule
 {
+    public FileLocation settingsFile =>
+        new()
+        {
+            FileName = "exampleAppSettings.json",
+            Path = @"Modules/example/exampleAppSettings.json"
+        };
+
+    public string ModuleName => "ExampleModule";
+
+    public string SettingsFileName => "exampleAppSettings.json";
+
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
         return builder;
@@ -30,6 +42,4 @@ public class Module : IModule
     public void BindOptions(WebApplicationBuilder builder)
     {
     }
-
-    public string settingsFileName => @"../ExampleModule/exampleAppSettings.json";
 }

@@ -11,9 +11,21 @@ public static class HostBuilderExtensions
 
         hostBuilder.ConfigureAppConfiguration((context, builder) =>
         {
+            var modulesFolder = Path.Combine(context.HostingEnvironment.ContentRootPath, "..", "Modules");
             builder.Sources.Clear();
-            foreach (var module in ModuleExtensions.DiscoverdModules)
-                builder.AddJsonFile(Path.GetFullPath(module.settingsFileName), false, true);
+            foreach (var module in ModuleExtensions.DiscoveredModules)
+            {
+                if (string.IsNullOrWhiteSpace(module.SettingsFileName)) continue;
+
+                var settingsFileAbsolutePath = Path.Combine(modulesFolder, module.ModuleName, module.SettingsFileName);
+                if (!File.Exists(settingsFileAbsolutePath))
+                    throw new Exception($"{module.SettingsFileName} not found at {settingsFileAbsolutePath}");
+
+                // if(module.settingsFileName is null || !File.Exists(module.settingsFileName)) continue;
+                builder.AddJsonFile(settingsFileAbsolutePath, false,
+                    true);
+            }
+
             builder.AddJsonFile("appsettings.json", false, true);
             builder.AddJsonFile($"appsettings.{environment}.json", true, true);
             builder.AddJsonFile($"appsettings.{machineName}.json", true, true);

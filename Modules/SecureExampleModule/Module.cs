@@ -8,6 +8,10 @@ namespace SecureExampleModule;
 
 public class Module : IModule
 {
+    public string ModuleName => "SecureExampleModule";
+
+    public string SettingsFileName => "secureExampleAppSettings.json";
+
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
         // builder.ConfigureModuleSettings<Module>(settingsFileName);
@@ -35,6 +39,4 @@ public class Module : IModule
     public void BindOptions(WebApplicationBuilder builder)
     {
     }
-
-    public string settingsFileName => @"../SecureExampleModule/secureExampleAppSettings.json";
 }

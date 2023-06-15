@@ -5,35 +5,36 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pro.Modular.Shared.Interfaces;
-using WeatherForecastModule.Endpoints;
-using WeatherForecastModule.Services;
+using ValidationModule.Endpoints;
+using ValidationModule.Models;
+using ValidationModule.Services;
 
-namespace WeatherForecastModule;
+namespace ValidationModule;
 
 public class Module : IModule
 {
-    public string ModuleName => "WeatherForecastModule";
-    public string SettingsFileName => "weatherForecastAppSettings.json";
+    public string ModuleName => "ValidationModule";
+    public string SettingsFileName => string.Empty;
 
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+        builder.Services.AddScoped<IProductService, ProductService>();
 
         return builder;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var weatherForecasts = endpoints.MapGroup("/weather")
+        var weatherForecasts = endpoints.MapGroup("/validation")
             .WithTags("Weather Forecasts")
             .WithOpenApi();
 
         weatherForecasts.MapGet("/weatherforecasts",
-                async Task<Results<BadRequest, Ok<IEnumerable<WeatherForecast>>>>
-                    (IWeatherForecastService weatherForecastService,
-                        ILogger<WeatherForecastService> logger)
-                    => await Weather.Forecast(weatherForecastService, logger))
-            .Produces(StatusCodes.Status200OK, typeof(IEnumerable<WeatherForecast>))
+                async Task<Results<BadRequest, Ok<IEnumerable<Product>>>>
+                    (IProductService weatherForecastService,
+                        ILogger<ProductService> logger)
+                    => await GetProducts.Forecast(weatherForecastService, logger))
+            .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
 
@@ -47,6 +48,5 @@ public class Module : IModule
 
     public void BindOptions(WebApplicationBuilder builder)
     {
-        builder.Services.Configure<ForecastOptions>(builder.Configuration.GetSection("WeatherForecast"));
     }
 }
