@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
+        <ProjectReference Include="..\..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

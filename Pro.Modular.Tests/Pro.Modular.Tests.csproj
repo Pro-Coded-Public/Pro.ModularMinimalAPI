@@ -32,6 +32,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Modules\ExampleModule\ExampleModule.csproj" />
+        <ProjectReference Include="..\Modules\SecureExampleModule\SecureExampleModule.csproj" />
+        <ProjectReference Include="..\Modules\WeatherForecastModule\WeatherForecastModule.csproj" />
         <ProjectReference Include="..\Pro.Modular.API\Pro.Modular.API.csproj" />
     </ItemGroup>
 

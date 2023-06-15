@@ -1,6 +1,7 @@
 {
   "WeatherForecast": {
     "SampleMessage": "Hello from the weather forecast module settings, David!",
+    "ForecastCount": 5,
     "Logging": {
       "LogLevel": {
         "Default": "Information",
