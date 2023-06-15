@@ -27,5 +27,9 @@ public class Module : IModule
         return endpoints;
     }
 
+    public void BindOptions(WebApplicationBuilder builder)
+    {
+    }
+
     public string settingsFileName => @"../ExampleModule/exampleAppSettings.json";
 }

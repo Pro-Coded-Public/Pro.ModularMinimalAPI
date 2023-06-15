@@ -6,6 +6,8 @@ namespace ExampleModule;
 
 internal static class Endpoints
 {
+    const string examplemoduleSamplemessage = "ExampleModule:SampleMessage";
+    
     internal static void ReturnException(int? statusCode)
     {
         throw statusCode switch
@@ -20,6 +22,6 @@ internal static class Endpoints
 
     internal static string? SettingsMessage(IConfiguration configuration)
     {
-        return configuration.GetSection("ExampleModule:SampleMessage").Value;
+        return configuration.GetValue<string>(examplemoduleSamplemessage);
     }
 }

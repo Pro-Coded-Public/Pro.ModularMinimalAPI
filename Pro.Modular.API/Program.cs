@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.DiscoverModules();
 builder.Host.ConfigureAppSettings();
+builder.BindOptions();
 builder.AddServices();
 builder.RegisterModules();
 

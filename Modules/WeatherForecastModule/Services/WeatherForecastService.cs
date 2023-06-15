@@ -1,4 +1,6 @@
-﻿namespace WeatherForecastModule.Services;
+﻿using Microsoft.Extensions.Options;
+
+namespace WeatherForecastModule.Services;
 
 public interface IWeatherForecastService
 {
@@ -7,6 +9,8 @@ public interface IWeatherForecastService
 
 public class WeatherForecastService : IWeatherForecastService
 {
+
+    private readonly IOptionsSnapshot<ForecastOptions> _forecastOptions;
     private static readonly string[] Summaries =
     {
         "Freezing",
@@ -20,10 +24,17 @@ public class WeatherForecastService : IWeatherForecastService
         "Sweltering",
         "Scorching"
     };
+    
+    public WeatherForecastService(IOptionsSnapshot<ForecastOptions> forecastOptions)
+    {
+        _forecastOptions = forecastOptions;
+    }
 
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecasts()
     {
-        return await Task.FromResult(Enumerable.Range(1, 5)
+        
+        // check the options for number of results to generate
+        return await Task.FromResult(Enumerable.Range(1, _forecastOptions.Value.ForecastCount)
             .Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

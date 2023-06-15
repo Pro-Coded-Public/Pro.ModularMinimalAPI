@@ -8,4 +8,6 @@ public interface IModule
     string settingsFileName { get; }
     WebApplicationBuilder RegisterModule(WebApplicationBuilder builder);
     IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+
+    void BindOptions(WebApplicationBuilder builder);
 }

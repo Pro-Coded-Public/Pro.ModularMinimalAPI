@@ -7,24 +7,25 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Pro.Modular.Tests"/>
+        <InternalsVisibleTo Include="Pro.Modular.Tests" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="weathermodulesettings.json"/>
+        <None Remove="weathermodulesettings.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Pro.Modular.Shared\Pro.Modular.Shared.csproj"/>
+        <ProjectReference Include="..\..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="weatherForecastAppSettings.json"/>
+        <None Remove="weatherForecastAppSettings.json" />
         <Content Include="weatherForecastAppSettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
