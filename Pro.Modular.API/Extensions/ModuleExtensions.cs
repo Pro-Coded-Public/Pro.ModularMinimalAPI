@@ -20,6 +20,12 @@ internal static class ModuleExtensions
         foreach (var module in DiscoverdModules) module.RegisterModule(builder);
 
         return builder;
+    }  
+    
+    internal static WebApplicationBuilder BindOptions(this WebApplicationBuilder builder)
+    {
+        foreach (var module in DiscoverdModules) module.BindOptions(builder);
+        return builder;
     }
 
     internal static WebApplication MapModuleEndpoints(this WebApplication app)

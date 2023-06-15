@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Immutable;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
@@ -40,6 +41,11 @@ public class Module : IModule
             .Produces(StatusCodes.Status200OK, typeof(string));
 
         return endpoints;
+    }
+
+    public void BindOptions(WebApplicationBuilder builder)
+    {
+        builder.Services.Configure<ForecastOptions>(builder.Configuration.GetSection("WeatherForecast"));
     }
 
 

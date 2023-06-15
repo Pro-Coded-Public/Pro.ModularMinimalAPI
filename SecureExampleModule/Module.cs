@@ -32,5 +32,9 @@ public class Module : IModule
         return endpoints;
     }
 
+    public void BindOptions(WebApplicationBuilder builder)
+    {
+    }
+
     public string settingsFileName => @"../SecureExampleModule/secureExampleAppSettings.json";
 }
