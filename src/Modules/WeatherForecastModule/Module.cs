@@ -47,6 +47,9 @@ public class Module : IModule
 
     public void BindOptions(WebApplicationBuilder builder)
     {
-        builder.Services.Configure<ForecastOptions>(builder.Configuration.GetSection("WeatherForecast"));
+        builder.Services.AddOptions<ForecastOptions>()
+            .BindConfiguration("WeatherForecast")
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
     }
 }

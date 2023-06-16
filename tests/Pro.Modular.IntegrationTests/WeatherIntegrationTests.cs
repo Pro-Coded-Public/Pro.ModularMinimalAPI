@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
+using Pro.Modular.IntegrationTests.Helpers;
 
-namespace Pro.Modular.Tests;
+namespace Pro.Modular.IntegrationTests;
 
 public class WeatherIntegrationTests
 {
