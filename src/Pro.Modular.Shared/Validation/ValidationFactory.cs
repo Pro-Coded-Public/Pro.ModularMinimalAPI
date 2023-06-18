@@ -3,19 +3,6 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-/*https://benfoster.io/blog/minimal-api-validation-endpoint-filters/
- *
- * var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
-
-var root = app.MapGroup("");
-root.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
- */
-
-//TODO: Verify if this only applies to endpoint groups, i.e:
-//var root = app.MapGroup("");
-//root.AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
-
 namespace Pro.Modular.Shared.Validation;
 
 public static class ValidationFilter
@@ -25,11 +12,9 @@ public static class ValidationFilter
     {
         var validationDescriptors = GetValidators(context.MethodInfo, context.ApplicationServices);
 
-        if (validationDescriptors.Any())
-            return invocationContext => Validate(validationDescriptors, invocationContext, next);
+        if (!validationDescriptors.Any()) return next;
 
-        // pass-thru
-        return next;
+        return invocationContext => Validate(validationDescriptors, invocationContext, next);
     }
 
     private static async ValueTask<object?> Validate(IEnumerable<ValidationDescriptor> validationDescriptors,
@@ -40,6 +25,7 @@ public static class ValidationFilter
             var argument = invocationContext.Arguments[descriptor.ArgumentIndex];
 
             if (argument is null) continue;
+
             var validationResult = await descriptor.Validator.ValidateAsync(
                 new ValidationContext<object>(argument)
             );
@@ -61,17 +47,15 @@ public static class ValidationFilter
         {
             var parameter = parameters[i];
 
-            if (parameter.GetCustomAttribute<ValidateAttribute>() is not null)
-            {
-                var validatorType = typeof(IValidator<>).MakeGenericType(parameter.ParameterType);
+            if (parameter.GetCustomAttribute<ValidateAttribute>() is null) continue;
 
-                // Note that FluentValidation validators needs to be registered as singleton
-                var validator = serviceProvider.GetService(validatorType) as IValidator;
+            var validatorType = typeof(IValidator<>).MakeGenericType(parameter.ParameterType);
 
-                if (validator is not null)
-                    yield return new ValidationDescriptor
-                        { ArgumentIndex = i, ArgumentType = parameter.ParameterType, Validator = validator };
-            }
+            // Note that FluentValidation validators need to be registered as singleton
+
+            if (serviceProvider.GetService(validatorType) is IValidator validator)
+                yield return new ValidationDescriptor
+                    { ArgumentIndex = i, ArgumentType = parameter.ParameterType, Validator = validator };
         }
     }
 

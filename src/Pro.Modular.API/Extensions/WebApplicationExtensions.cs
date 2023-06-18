@@ -4,16 +4,17 @@ public static class WebApplicationExtensions
 {
     public static WebApplication UseMiddleware(this WebApplication app)
     {
+        //TODO: verify if these are required, and in what order
         app.UseCors();
         app.UseAuthentication();
-        app.UseAuthorization();
+
         app.UseErrorHandling();
         app.UseHttpsRedirection();
         app.UseHsts();
-        app.UseStaticFiles();
+        // app.UseStaticFiles();
         app.UseSwaggerEndpoint();
-        app.UseRouting();
-
+        // app.UseRouting();
+        app.UseAuthorization();
         return app;
     }
 

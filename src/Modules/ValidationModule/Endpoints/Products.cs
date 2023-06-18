@@ -5,9 +5,9 @@ using ValidationModule.Services;
 
 namespace ValidationModule.Endpoints;
 
-internal static class GetProducts
+internal static class Products
 {
-    internal static async Task<Results<BadRequest, Ok<IEnumerable<Product>>>> Forecast(
+    internal static async Task<Results<BadRequest, Ok<IEnumerable<Product>>>> GetProducts(
         IProductService productService, ILogger<ProductService> logger)
     {
         var results = await productService.GetProducts();
@@ -16,5 +16,11 @@ internal static class GetProducts
 
         logger.LogInformation("No results found");
         return TypedResults.BadRequest();
+    }
+
+    public static async Task<Product> CreateProduct(IProductService productService, ILogger<ProductService> logger,
+        Product product)
+    {
+        return await productService.CreateProduct(product);
     }
 }

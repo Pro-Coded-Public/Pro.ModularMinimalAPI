@@ -7,16 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="Pro.Modular.UnitTests"/>
-        <InternalsVisibleTo Include="Pro.Modular.IntegrationTests"/>
+        <InternalsVisibleTo Include="Pro.Modular.UnitTests" />
+        <InternalsVisibleTo Include="Pro.Modular.IntegrationTests" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Pro.Modular.Shared\Pro.Modular.Shared.csproj"/>
+        <ProjectReference Include="..\..\Pro.Modular.Shared\Pro.Modular.Shared.csproj" />
     </ItemGroup>
 </Project>

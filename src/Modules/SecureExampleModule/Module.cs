@@ -24,14 +24,18 @@ public class Module : IModule
         var secureExamples = endpoints.MapGroup("/SecureExamples")
             .WithTags("Secure Examples")
             .WithOpenApi();
+//            .RequireAuthorization("ApiKeyPolicy");
 
-        secureExamples.MapGet("/protectedMessage", Endpoints.ProtectedMessage)
+
+        secureExamples.MapGet("/apikeyprotectedmessage", Endpoints.ProtectedMessage)
             .WithDescription("Api Key Protected")
             .Produces(StatusCodes.Status200OK, typeof(string))
             .AddEndpointFilter<ApiKeyEndpointFilterAsync>();
 
-        secureExamples.MapGet("/message", Endpoints.SettingsMessage)
-            .Produces(StatusCodes.Status200OK, typeof(string));
+        secureExamples.MapGet("/ouathprotectedmessage", Endpoints.ProtectedMessage)
+            .WithDescription("OAuth Protected")
+            .Produces(StatusCodes.Status200OK, typeof(string))
+            .RequireAuthorization();
 
         return endpoints;
     }

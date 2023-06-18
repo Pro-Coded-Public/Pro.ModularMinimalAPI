@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pro.Modular.Shared.Interfaces;
+using Pro.Modular.Shared.Validation;
 using ValidationModule.Endpoints;
 using ValidationModule.Models;
 using ValidationModule.Services;
@@ -19,29 +20,73 @@ public class Module : IModule
     public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddSingleton<IValidator<Product>, ProductValidator>();
 
         return builder;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var weatherForecasts = endpoints.MapGroup("/validation")
-            .WithTags("Weather Forecasts")
+        var products = endpoints.MapGroup("/product")
+            .WithTags("Validation")
             .WithOpenApi();
+        // .AddEndpointFilter<ProductValidationFilter>(); Optionally add the filter here
+        // .AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory); Optionally add the filter factory here
 
-        weatherForecasts.MapGet("/weatherforecasts",
-                async Task<Results<BadRequest, Ok<IEnumerable<Product>>>>
-                    (IProductService weatherForecastService,
-                        ILogger<ProductService> logger)
-                    => await GetProducts.Forecast(weatherForecastService, logger))
+        // Option 1 is to use a simple endpoint filter
+        products.MapPost("/standardfilter",
+                async Task<Results<BadRequest, Ok<Product>>>
+                    (IProductService productService,
+                        ILogger<ProductService> logger, Product product)
+                    =>
+                {
+                    var createdProduct = await Products.CreateProduct(productService, logger, product);
+                    if (createdProduct is not null)
+                        return TypedResults.Ok(createdProduct);
+
+                    logger.LogInformation("No results found");
+                    return TypedResults.BadRequest();
+                })
+            .AddEndpointFilter<ProductValidationFilter>()
             .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
+        // Option 2 is to use a generic endpoint filter
+        products.MapPost("/genericfilter",
+                async Task<Results<BadRequest, Ok<Product>>>
+                    (IProductService productService,
+                        ILogger<ProductService> logger, Product product)
+                    =>
+                {
+                    var createdProduct = await Products.CreateProduct(productService, logger, product);
+                    if (createdProduct is not null)
+                        return TypedResults.Ok(createdProduct);
 
-        weatherForecasts.MapGet("/message",
-                (IConfiguration configuration)
-                    => configuration.GetSection("WeatherForecast:SampleMessage").Value)
-            .Produces(StatusCodes.Status200OK, typeof(string));
+                    logger.LogInformation("No results found");
+                    return TypedResults.BadRequest();
+                })
+            .AddEndpointFilter<GenericValidationFilter<Product>>()
+            .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+
+        // Option 3 is to use filter factory
+        products.MapPost("/filterfactory",
+                async Task<Results<BadRequest, Ok<Product>>>
+                    (IProductService productService,
+                        ILogger<ProductService> logger, [Validate] Product product)
+                    =>
+                {
+                    var createdProduct = await Products.CreateProduct(productService, logger, product);
+                    if (createdProduct is not null)
+                        return TypedResults.Ok(createdProduct);
+
+                    logger.LogInformation("No results found");
+                    return TypedResults.BadRequest();
+                })
+            .AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory)
+            .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+
 
         return endpoints;
     }

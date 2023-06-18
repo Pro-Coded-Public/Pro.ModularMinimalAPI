@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.Identity.Web;
+using Microsoft.OpenApi.Models;
 using Pro.Modular.Shared.Models;
 
 namespace Pro.Modular.API.Extensions;
@@ -7,12 +8,13 @@ public static class WebApplicationBuilderExtensions
 {
     internal static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
     {
+        //TODO: verify if these are required, and in what order
+        builder.Services.AddCors();
+        builder.Services.AddAuthentication();
+        builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration, "AzureAdB2C");
         builder.AddAndConfigureSerilog();
         builder.AddAndConfigureSwagger();
         builder.Services.AddProblemDetails();
-        builder.Services.AddCors();
-        builder.Services.AddAuthentication();
-        builder.Services.AddAuthorization();
 
         return builder;
     }
