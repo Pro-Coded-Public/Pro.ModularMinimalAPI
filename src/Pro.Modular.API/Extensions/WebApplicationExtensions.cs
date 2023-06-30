@@ -88,7 +88,7 @@ public static class WebApplicationExtensions
         return app;
     }
 
-    public class CustomException : Exception
+    private class CustomException : Exception
     {
         public CustomException(
             string message,

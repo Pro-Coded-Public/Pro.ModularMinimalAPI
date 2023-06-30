@@ -15,11 +15,16 @@ public class Module : IModule
     public string ModuleName => "WeatherForecastModule";
     public string SettingsFileName => "weatherForecastAppSettings.json";
 
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
         return builder;
+    }
+
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

@@ -11,17 +11,22 @@ public class Module : IModule
     public FileLocation settingsFile =>
         new()
         {
-            FileName = "exampleAppSettings.json",
-            Path = @"Modules/example/exampleAppSettings.json"
+            FileName = "cqrsModuleAppSettings.json",
+            Path = @"Modules/CQRSModule/cqrsModuleAppSettings.json"
         };
 
-    public string ModuleName => "ExampleModule";
+    public string ModuleName => "CQRSModule";
 
-    public string SettingsFileName => "exampleAppSettings.json";
+    public string SettingsFileName => "cqrsModuleAppSettings.json";
 
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
         return builder;
+    }
+
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

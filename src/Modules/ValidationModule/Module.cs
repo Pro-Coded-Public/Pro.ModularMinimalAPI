@@ -17,12 +17,17 @@ public class Module : IModule
     public string ModuleName => "ValidationModule";
     public string SettingsFileName => string.Empty;
 
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddSingleton<IValidator<Product>, ProductValidator>();
 
         return builder;
+    }
+
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

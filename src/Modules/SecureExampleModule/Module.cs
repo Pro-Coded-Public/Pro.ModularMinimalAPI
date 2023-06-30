@@ -12,11 +12,14 @@ public class Module : IModule
 
     public string SettingsFileName => "secureExampleAppSettings.json";
 
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
-        // builder.ConfigureModuleSettings<Module>(settingsFileName);
-
         return builder;
+    }
+
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

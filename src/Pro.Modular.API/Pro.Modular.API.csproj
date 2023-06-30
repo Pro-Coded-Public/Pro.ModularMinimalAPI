@@ -30,6 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Modules\CQRSModule\CQRSModule.csproj" />
         <ProjectReference Include="..\Modules\ExampleModule\ExampleModule.csproj" />
         <ProjectReference Include="..\Modules\SecureExampleModule\SecureExampleModule.csproj" />
         <ProjectReference Include="..\Modules\ValidationModule\ValidationModule.csproj" />

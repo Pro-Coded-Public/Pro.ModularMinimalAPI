@@ -9,9 +9,8 @@ public interface IModule
 
     string SettingsFileName { get; }
 
-    // FileLocation settingsFile { get; }
-    WebApplicationBuilder RegisterModule(WebApplicationBuilder builder);
+    WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder);
+    WebApplication UseModuleMiddleware(WebApplication app);
     IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
-
     void BindOptions(WebApplicationBuilder builder);
 }
