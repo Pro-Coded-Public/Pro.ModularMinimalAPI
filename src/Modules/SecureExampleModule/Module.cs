@@ -32,7 +32,7 @@ public class Module : IModule
             .Produces(StatusCodes.Status200OK, typeof(string))
             .AddEndpointFilter<ApiKeyEndpointFilterAsync>();
 
-        secureExamples.MapGet("/ouathprotectedmessage", Endpoints.ProtectedMessage)
+        secureExamples.MapGet("/oauthprotectedmessage", Endpoints.ProtectedMessage)
             .WithDescription("OAuth Protected")
             .Produces(StatusCodes.Status200OK, typeof(string))
             .RequireAuthorization();

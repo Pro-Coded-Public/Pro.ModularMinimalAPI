@@ -8,10 +8,6 @@ public class RootObject
 
 public class JwtOptions
 {
-    public required string Instance { get; set; }
-    public required string ClientId { get; set; }
-    public required string Domain { get; set; }
-    public required string TenantId { get; set; }
     public required string AuthorizationUrl { get; set; }
     public required string TokenUrl { get; set; }
     public required string ApiScope { get; set; }

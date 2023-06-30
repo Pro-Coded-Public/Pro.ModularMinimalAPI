@@ -21,7 +21,6 @@ public static class HostBuilderExtensions
                 if (!File.Exists(settingsFileAbsolutePath))
                     throw new Exception($"{module.SettingsFileName} not found at {settingsFileAbsolutePath}");
 
-                // if(module.settingsFileName is null || !File.Exists(module.settingsFileName)) continue;
                 builder.AddJsonFile(settingsFileAbsolutePath, false,
                     true);
             }

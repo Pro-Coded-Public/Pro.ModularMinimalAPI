@@ -8,13 +8,13 @@ public static class WebApplicationBuilderExtensions
 {
     internal static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
     {
-        //TODO: verify if these are required, and in what order
+        builder.Services.AddProblemDetails();
         builder.Services.AddCors();
+        builder.AddAndConfigureSerilog();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.AddAndConfigureSwagger();
         builder.Services.AddAuthentication();
         builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration, "AzureAdB2C");
-        builder.AddAndConfigureSerilog();
-        builder.AddAndConfigureSwagger();
-        builder.Services.AddProblemDetails();
 
         return builder;
     }
@@ -32,7 +32,7 @@ public static class WebApplicationBuilderExtensions
 
     private static WebApplicationBuilder AddAndConfigureSwagger(this WebApplicationBuilder builder)
     {
-        var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
+        var jwtOptions = builder.Configuration.GetSection("SwaggerJwtOptions").Get<JwtOptions>();
 
         builder.Services.AddSwaggerGen(options =>
         {
@@ -108,8 +108,6 @@ public static class WebApplicationBuilderExtensions
 
             options.AddSecurityRequirement(apiKeyRequirement);
         });
-
-        builder.Services.AddEndpointsApiExplorer();
 
         return builder;
     }
