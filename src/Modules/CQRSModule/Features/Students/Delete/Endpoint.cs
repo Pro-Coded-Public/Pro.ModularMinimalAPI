@@ -1,6 +1,6 @@
 ﻿using CQRSModule.Services;
 
-namespace CQRSModule.Endpoints.Students.Delete;
+namespace CQRSModule.Features.Students.Delete;
 
 public static class Endpoint
 {

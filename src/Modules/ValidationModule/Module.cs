@@ -35,8 +35,6 @@ public class Module : IModule
         var products = endpoints.MapGroup("/product")
             .WithTags("Validation")
             .WithOpenApi();
-        // .AddEndpointFilter<ProductValidationFilter>(); Optionally add the filter here
-        // .AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory); Optionally add the filter factory here
 
         // Option 1 is to use a simple endpoint filter
         products.MapPost("/standardfilter",

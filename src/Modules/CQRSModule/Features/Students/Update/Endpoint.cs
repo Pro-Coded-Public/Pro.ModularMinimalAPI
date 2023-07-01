@@ -1,7 +1,7 @@
-﻿using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using CQRSModule.Services;
 
-namespace CQRSModule.Endpoints.Students.Update;
+namespace CQRSModule.Features.Students.Update;
 
 public static class Endpoint
 {

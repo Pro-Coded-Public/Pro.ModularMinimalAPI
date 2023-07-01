@@ -1,5 +1,5 @@
 ﻿using CQRSModule.Data;
-using CQRSModule.Models;
+using CQRSModule.Features.Students.Models;
 using CQRSModule.Services.Repositories.Base;
 
 namespace CQRSModule.Services.Repositories;

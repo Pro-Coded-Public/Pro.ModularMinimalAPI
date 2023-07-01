@@ -1,8 +1,8 @@
-﻿using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using CQRSModule.Services;
 using MiniValidation;
 
-namespace CQRSModule.Endpoints.Students.Create;
+namespace CQRSModule.Features.Students.Create;
 
 public static class Endpoint
 {

@@ -1,9 +1,12 @@
-﻿using CQRSModule.Mediator.Queries;
-using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using CQRSModule.Services.Repositories;
 using MediatR;
 
-namespace CQRSModule.Mediator.Handlers;
+namespace CQRSModule.Features.Students.GetAll;
+
+public class GetAllStudentsQuery : IRequest<IList<Student>>
+{
+}
 
 public class GetAllStudentsQueryHandler : IRequestHandler<GetAllStudentsQuery, IList<Student>?>
 {

@@ -27,8 +27,6 @@ public class Module : IModule
         var secureExamples = endpoints.MapGroup("/SecureExamples")
             .WithTags("Secure Examples")
             .WithOpenApi();
-//            .RequireAuthorization("ApiKeyPolicy");
-
 
         secureExamples.MapGet("/apikeyprotectedmessage", Endpoints.ProtectedMessage)
             .WithDescription("Api Key Protected")

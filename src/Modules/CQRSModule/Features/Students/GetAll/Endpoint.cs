@@ -1,6 +1,6 @@
 ﻿using CQRSModule.Services;
 
-namespace CQRSModule.Endpoints.Students.GetAll;
+namespace CQRSModule.Features.Students.GetAll;
 
 public static class Endpoint
 {

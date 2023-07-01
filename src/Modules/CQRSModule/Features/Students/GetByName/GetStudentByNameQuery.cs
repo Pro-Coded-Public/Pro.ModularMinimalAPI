@@ -1,9 +1,13 @@
-﻿using CQRSModule.Mediator.Queries;
-using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using CQRSModule.Services.Repositories;
 using MediatR;
 
-namespace CQRSModule.Mediator.Handlers;
+namespace CQRSModule.Features.Students.GetByName;
+
+public class GetStudentByNameQuery : IRequest<Student>
+{
+    public string Name { get; set; }
+}
 
 public class GetStudentByNameQueryHandler : IRequestHandler<GetStudentByNameQuery, Student?>
 {

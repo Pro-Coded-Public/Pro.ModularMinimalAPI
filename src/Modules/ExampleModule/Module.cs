@@ -2,19 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Pro.Modular.Shared.Interfaces;
-using Pro.Modular.Shared.Models;
 
 namespace ExampleModule;
 
 public class Module : IModule
 {
-    public FileLocation settingsFile =>
-        new()
-        {
-            FileName = "cqrsModuleAppSettings.json",
-            Path = @"Modules/CQRSModule/cqrsModuleAppSettings.json"
-        };
-
     public string ModuleName => "CQRSModule";
 
     public string SettingsFileName => "cqrsModuleAppSettings.json";

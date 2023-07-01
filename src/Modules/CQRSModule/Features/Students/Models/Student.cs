@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CQRSModule.Models;
+namespace CQRSModule.Features.Students.Models;
 
 public record Student(string Name, string? Address, string? Email, DateTime? DateOfBirth, bool? Active = true)
 {

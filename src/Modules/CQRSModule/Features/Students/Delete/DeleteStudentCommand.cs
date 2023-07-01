@@ -1,8 +1,12 @@
-﻿using CQRSModule.Mediator.Commands;
-using CQRSModule.Services.Repositories;
+﻿using CQRSModule.Services.Repositories;
 using MediatR;
 
-namespace CQRSModule.Mediator.Handlers;
+namespace CQRSModule.Features.Students.Delete;
+
+public class DeleteStudentCommand : IRequest<bool>
+{
+    public int Id { get; set; }
+}
 
 public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand, bool>
 {

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using CQRSModule.Data;
-using CQRSModule.Endpoints.Students.Create;
-using CQRSModule.Endpoints.Students.Delete;
-using CQRSModule.Endpoints.Students.GetAll;
-using CQRSModule.Endpoints.Students.GetById;
-using CQRSModule.Endpoints.Students.GetByName;
-using CQRSModule.Endpoints.Students.Update;
+using CQRSModule.Features.Students.Create;
+using CQRSModule.Features.Students.Delete;
+using CQRSModule.Features.Students.GetAll;
+using CQRSModule.Features.Students.GetById;
+using CQRSModule.Features.Students.GetByName;
+using CQRSModule.Features.Students.Update;
 using CQRSModule.Services;
 using CQRSModule.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -52,10 +52,10 @@ public class Module : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-//         var cqrsExamples = endpoints.MapGroup("/SecureExamples")
-//             .WithTags("Secure Examples")
-//             .WithOpenApi();
-// //            .RequireAuthorization("ApiKeyPolicy");
+        var cqrsExamples = endpoints.MapGroup("/SecureExamples")
+            .WithTags("CQRS Examples")
+            .WithOpenApi();
+//            .RequireAuthorization("ApiKeyPolicy");
 
         endpoints.MapGetAllStudents()
             .MapGetByIdStudent()

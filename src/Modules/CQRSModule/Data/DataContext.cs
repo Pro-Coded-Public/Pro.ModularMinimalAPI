@@ -1,4 +1,4 @@
-﻿using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CQRSModule.Data;

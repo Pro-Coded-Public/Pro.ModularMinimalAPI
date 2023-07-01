@@ -1,9 +1,21 @@
-﻿using CQRSModule.Mediator.Commands;
-using CQRSModule.Models;
+﻿using CQRSModule.Features.Students.Models;
 using CQRSModule.Services.Repositories;
 using MediatR;
 
-namespace CQRSModule.Mediator.Handlers;
+namespace CQRSModule.Features.Students.Create;
+
+public class CreateStudentCommand : IRequest<Student>
+{
+    public string Name { get; set; }
+
+    public string? Address { get; set; }
+
+    public string? Email { get; set; }
+
+    public DateTime? DateOfBirth { get; set; }
+
+    public bool? Active { get; set; } = true;
+}
 
 public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand, Student>
 {

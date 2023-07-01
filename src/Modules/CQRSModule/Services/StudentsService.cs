@@ -1,6 +1,10 @@
-using CQRSModule.Mediator.Commands;
-using CQRSModule.Mediator.Queries;
-using CQRSModule.Models;
+using CQRSModule.Features.Students.Create;
+using CQRSModule.Features.Students.Delete;
+using CQRSModule.Features.Students.GetAll;
+using CQRSModule.Features.Students.GetById;
+using CQRSModule.Features.Students.GetByName;
+using CQRSModule.Features.Students.Models;
+using CQRSModule.Features.Students.Update;
 using MediatR;
 
 namespace CQRSModule.Services;
