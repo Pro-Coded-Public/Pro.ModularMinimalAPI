@@ -1,5 +1,4 @@
-﻿using CQRSModule.Features.Students.Models;
-using CQRSModule.Services;
+﻿using MediatR;
 
 namespace CQRSModule.Features.Students.Update;
 
@@ -7,11 +6,11 @@ public static class Endpoint
 {
     public static IEndpointRouteBuilder MapPutUpdateStudent(this IEndpointRouteBuilder app)
     {
-        app.MapPut("student/update", async (Student student, IStudentsService studentService) =>
+        app.MapPut("student/update", async (UpdateStudentCommand updateStudentCommand, IMediator mediator) =>
         {
             try
             {
-                var updatedStudent = await studentService.Update(student).ConfigureAwait(false);
+                var updatedStudent = await mediator.Send(updateStudentCommand).ConfigureAwait(false);
                 return Results.Ok(updatedStudent);
             }
             catch (Exception ex)

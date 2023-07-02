@@ -1,4 +1,4 @@
-﻿using CQRSModule.Services;
+﻿using MediatR;
 
 namespace CQRSModule.Features.Students.Delete;
 
@@ -6,11 +6,11 @@ public static class Endpoint
 {
     public static IEndpointRouteBuilder MapDeleteStudent(this IEndpointRouteBuilder app)
     {
-        app.MapDelete("student/delete", async (int id, IStudentsService studentService) =>
+        app.MapDelete("student/delete", async (int id, IMediator mediator) =>
         {
             try
             {
-                var success = await studentService.Delete(id).ConfigureAwait(false);
+                var success = await mediator.Send(new DeleteStudentCommand { Id = id }).ConfigureAwait(false);
                 return success ? Results.Ok() : Results.BadRequest();
             }
             catch (Exception ex)

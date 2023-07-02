@@ -4,15 +4,15 @@ namespace CQRSModule.Services;
 
 public interface IStudentsService
 {
-    Task<bool> Delete(int id);
+    Task<bool> Delete(int id, CancellationToken cancellationToken);
 
-    Task<IList<Student>?> GetAll();
+    Task<IList<Student>?> GetAll(CancellationToken cancellationToken);
 
-    Task<Student?> GetById(int id);
+    Task<Student?> GetById(int id, CancellationToken cancellationToken);
 
-    Task<Student?> GetByName(string name);
+    Task<Student?> GetByName(string name, CancellationToken cancellationToken);
 
-    Task<Student> Create(Student student);
+    Task<Student> Create(Student student, CancellationToken cancellationToken);
 
-    Task<Student> Update(Student student);
+    Task<Student> Update(Student student, CancellationToken cancellationToken);
 }

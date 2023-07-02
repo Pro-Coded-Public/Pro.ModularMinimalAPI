@@ -1,76 +1,44 @@
-using CQRSModule.Features.Students.Create;
-using CQRSModule.Features.Students.Delete;
-using CQRSModule.Features.Students.GetAll;
-using CQRSModule.Features.Students.GetById;
-using CQRSModule.Features.Students.GetByName;
 using CQRSModule.Features.Students.Models;
-using CQRSModule.Features.Students.Update;
-using MediatR;
+using CQRSModule.Services.Repositories;
 
 namespace CQRSModule.Services;
 
 public class StudentsService : IStudentsService
 {
-    private readonly IMediator _mediator;
+    private readonly IStudentsRepository _studentsRepository;
 
-    public StudentsService(IMediator mediator)
+    public StudentsService(IStudentsRepository studentsRepository)
     {
-        _mediator = mediator;
+        _studentsRepository = studentsRepository;
     }
 
-    public async Task<Student> Create(Student student)
+    public async Task<Student> Update(Student student, CancellationToken cancellationToken)
     {
-        var command = new CreateStudentCommand
-        {
-            Name = student.Name,
-            Address = student.Email,
-            Email = student.Address,
-            DateOfBirth = student.DateOfBirth,
-            Active = student.Active
-        };
-        var response = await _mediator.Send(command);
-        return response;
+        return await _studentsRepository.UpdateAsync(student, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<bool> Delete(int id)
+    public async Task<bool> Delete(int id, CancellationToken cancellationToken)
     {
-        var command = new DeleteStudentCommand { Id = id };
-        return await _mediator.Send(command);
+        return await _studentsRepository.RemoveAsync(id, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<IList<Student>?> GetAll()
+    public async Task<Student> Create(Student student, CancellationToken cancellationToken)
     {
-        var command = new GetAllStudentsQuery();
-        var students = await _mediator.Send(command);
-        return students;
+        return await _studentsRepository.AddAsync(student, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<Student?> GetById(int id)
+    public async Task<IList<Student>?> GetAll(CancellationToken cancellationToken)
     {
-        var command = new GetStudentByIdQuery { Id = id };
-        var student = await _mediator.Send(command);
-        return student;
+        return await _studentsRepository.GetAllAsync(cancellationToken);
     }
 
-    public async Task<Student?> GetByName(string name)
+    public async Task<Student?> GetById(int id, CancellationToken cancellationToken)
     {
-        var command = new GetStudentByNameQuery { Name = name };
-        var student = await _mediator.Send(command);
-        return student;
+        return await _studentsRepository.GetByIdAsync(id, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<Student> Update(Student student)
+    public async Task<Student?> GetByName(string name, CancellationToken cancellationToken)
     {
-        var command = new UpdateStudentCommand
-        {
-            Id = student.Id,
-            Name = student.Name,
-            Address = student.Address,
-            Email = student.Email,
-            DateOfBirth = student.DateOfBirth,
-            Active = student.Active
-        };
-        var updatedStudent = await _mediator.Send(command);
-        return updatedStudent;
+        return await _studentsRepository.GetByNameAsync(name, cancellationToken).ConfigureAwait(false);
     }
 }

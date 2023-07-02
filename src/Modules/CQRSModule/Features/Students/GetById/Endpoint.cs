@@ -1,4 +1,4 @@
-﻿using CQRSModule.Services;
+﻿using MediatR;
 
 namespace CQRSModule.Features.Students.GetById;
 
@@ -6,11 +6,11 @@ public static class Endpoint
 {
     public static IEndpointRouteBuilder MapGetByIdStudent(this IEndpointRouteBuilder app)
     {
-        app.MapGet("student/get-by-id", async (int id, IStudentsService studentService) =>
+        app.MapGet("student/get-by-id", async (int id, IMediator mediator) =>
         {
             try
             {
-                var existingStudent = await studentService.GetById(id).ConfigureAwait(false);
+                var existingStudent = await mediator.Send(new GetStudentByIdQuery { Id = id }).ConfigureAwait(false);
                 return existingStudent != null ? Results.Ok(existingStudent) : Results.NotFound();
             }
             catch (Exception ex)

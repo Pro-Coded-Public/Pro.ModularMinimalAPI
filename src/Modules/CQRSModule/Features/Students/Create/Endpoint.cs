@@ -1,5 +1,4 @@
-﻿using CQRSModule.Features.Students.Models;
-using CQRSModule.Services;
+﻿using MediatR;
 using MiniValidation;
 
 namespace CQRSModule.Features.Students.Create;
@@ -8,10 +7,10 @@ public static class Endpoint
 {
     public static IEndpointRouteBuilder MapPostCreateStudent(this IEndpointRouteBuilder app)
     {
-        app.MapPost("student/create", async (Student student, IStudentsService studentService) =>
-            !MiniValidator.TryValidate(student, out var errors)
+        app.MapPost("student/create", async (CreateStudentCommand createStudentCommand, IMediator mediatr) =>
+            !MiniValidator.TryValidate(createStudentCommand, out var errors)
                 ? Results.ValidationProblem(errors)
-                : Results.Ok(await studentService.Create(student).ConfigureAwait(false)));
+                : Results.Ok(await mediatr.Send(createStudentCommand).ConfigureAwait(false)));
         return app;
     }
 }

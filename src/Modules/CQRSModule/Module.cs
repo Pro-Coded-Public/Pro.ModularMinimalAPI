@@ -31,7 +31,7 @@ public class Module : IModule
 
         builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
 
-        builder.Services.AddTransient<IStudentsRepository, StudentsRepository>();
+        builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();
         builder.Services.AddScoped<IStudentsService, StudentsService>();
 
         return builder;
