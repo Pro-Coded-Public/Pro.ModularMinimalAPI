@@ -10,7 +10,7 @@ public static class Endpoint
         {
             try
             {
-                var success = await mediator.Send(new DeleteStudentCommand { Id = id }).ConfigureAwait(false);
+                var success = await mediator.Send(new DeleteStudentCommand(id)).ConfigureAwait(false);
                 return success ? Results.Ok() : Results.BadRequest();
             }
             catch (Exception ex)

@@ -3,6 +3,6 @@ using MediatR;
 
 namespace CQRSModule.Features.Students.GetAll;
 
-public class GetAllStudentsQuery : IRequest<IList<Student>>
+public record GetAllStudentsQuery : IRequest<IList<Student>>
 {
 }

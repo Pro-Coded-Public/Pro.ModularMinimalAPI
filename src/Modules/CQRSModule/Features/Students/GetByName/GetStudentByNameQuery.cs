@@ -3,7 +3,4 @@ using MediatR;
 
 namespace CQRSModule.Features.Students.GetByName;
 
-public class GetStudentByNameQuery : IRequest<Student>
-{
-    public string Name { get; set; }
-}
+public record GetStudentByNameQuery(string Name) : IRequest<Student>;

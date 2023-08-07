@@ -10,7 +10,7 @@ public static class Endpoint
         {
             try
             {
-                var existingStudent = await mediator.Send(new GetStudentByIdQuery { Id = id }).ConfigureAwait(false);
+                var existingStudent = await mediator.Send(new GetStudentByIdQuery(id)).ConfigureAwait(false);
                 return existingStudent != null ? Results.Ok(existingStudent) : Results.NotFound();
             }
             catch (Exception ex)

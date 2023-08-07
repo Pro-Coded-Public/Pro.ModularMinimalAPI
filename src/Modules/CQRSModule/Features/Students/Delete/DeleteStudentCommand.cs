@@ -2,7 +2,4 @@
 
 namespace CQRSModule.Features.Students.Delete;
 
-public class DeleteStudentCommand : IRequest<bool>
-{
-    public int Id { get; set; }
-}
+public record DeleteStudentCommand(int Id) : IRequest<bool>;

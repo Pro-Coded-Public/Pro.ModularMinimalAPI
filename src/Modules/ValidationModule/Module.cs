@@ -72,7 +72,7 @@ public class Module : IModule
             .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        // Option 3 is to use filter factory
+        // Option 3 is to use filter factory - normally at the group level
         products.MapPost("/filterfactory",
                 async Task<Results<BadRequest, Ok<Product>>>
                     (IProductService productService,
