@@ -10,17 +10,22 @@ public static class InterfaceScanner
         var directoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var moduleInterfaceType = typeof(IModule);
 
-        var files = Directory.EnumerateFiles(directoryPath!, "*.dll", SearchOption.TopDirectoryOnly)
-            .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.") && !Path.GetFileName(f).StartsWith("System."))
-            .Select(Assembly.LoadFrom);
+        var filesToProcess = Directory.EnumerateFiles(directoryPath!, "*.dll", SearchOption.TopDirectoryOnly);
 
-        if (files is null) throw new Exception("No assemblies found");
+        List<Assembly> files = [];
+        files.AddRange(from file in filesToProcess
+            where file.EndsWith("Module.dll", StringComparison.InvariantCultureIgnoreCase)
+            select Assembly.LoadFile(file));
+        
+        if (files is null) throw new Exception("No assemblies found.");
 
-        var types = files
+        var modules = files
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => type.IsClass && moduleInterfaceType.IsAssignableFrom(type))
             .Select(type => Activator.CreateInstance(type) as IModule);
 
-        return types;
+        if (modules is null) throw new Exception("No modules found.");
+
+        return modules;
     }
 }
