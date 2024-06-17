@@ -17,7 +17,7 @@ public class Module : IModule
     public string ModuleName => "ValidationModule";
     public string SettingsFileName => string.Empty;
 
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddSingleton<IValidator<Product>, ProductValidator>();
@@ -25,13 +25,16 @@ public class Module : IModule
         return builder;
     }
 
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
+    }
+
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
         var products = endpoints.MapGroup("/product")
             .WithTags("Validation")
             .WithOpenApi();
-        // .AddEndpointFilter<ProductValidationFilter>(); Optionally add the filter here
-        // .AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory); Optionally add the filter factory here
 
         // Option 1 is to use a simple endpoint filter
         products.MapPost("/standardfilter",
@@ -69,7 +72,7 @@ public class Module : IModule
             .Produces(StatusCodes.Status200OK, typeof(IEnumerable<Product>))
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        // Option 3 is to use filter factory
+        // Option 3 is to use filter factory - normally at the group level
         products.MapPost("/filterfactory",
                 async Task<Results<BadRequest, Ok<Product>>>
                     (IProductService productService,

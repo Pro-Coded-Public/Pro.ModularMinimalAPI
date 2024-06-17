@@ -14,11 +14,18 @@ internal static class ModuleExtensions
         return builder;
     }
 
-    internal static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder)
+    internal static WebApplicationBuilder AddModuleServices(this WebApplicationBuilder builder)
     {
-        foreach (var module in DiscoveredModules) module.RegisterModule(builder);
+        foreach (var module in DiscoveredModules) module.AddModuleServices(builder);
 
         return builder;
+    }
+
+    internal static WebApplication UseModuleMiddleware(this WebApplication app)
+    {
+        foreach (var module in DiscoveredModules) module.UseModuleMiddleware(app);
+
+        return app;
     }
 
     internal static WebApplicationBuilder BindOptions(this WebApplicationBuilder builder)

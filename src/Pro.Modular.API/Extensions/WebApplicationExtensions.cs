@@ -22,36 +22,7 @@ public static class WebApplicationExtensions
 
                     if (exceptionType is not null)
                     {
-                        (string Title, string Detail, int StatusCode) details = exceptionType switch
-                        {
-                            CustomException customException =>
-                            (
-                                exceptionType.GetType().Name,
-                                exceptionType.Message,
-                                context.Response.StatusCode = (int)customException.StatusCode
-                            ),
-                            _ =>
-                            (
-                                exceptionType.GetType().Name,
-                                exceptionType.Message,
-                                context.Response.StatusCode = StatusCodes.Status500InternalServerError
-                            )
-                        };
-
-                        var problem = new ProblemDetailsContext
-                        {
-                            HttpContext = context,
-                            ProblemDetails =
-                            {
-                                Title = details.Title,
-                                Detail = details.Detail,
-                                Status = details.StatusCode
-                            }
-                        };
-
-                        if (app.Environment.IsDevelopment())
-                            problem.ProblemDetails.Extensions.Add("exception",
-                                exceptionHandlerFeature?.Error.ToString());
+                        var problem = BuildProblemDetails(app, exceptionType, context, exceptionHandlerFeature);
 
                         await problemDetailsService.WriteAsync(problem);
                     }
@@ -72,6 +43,43 @@ public static class WebApplicationExtensions
         return app;
     }
 
+    private static ProblemDetailsContext BuildProblemDetails(WebApplication app, Exception exceptionType,
+        HttpContext context, IExceptionHandlerFeature? exceptionHandlerFeature)
+    {
+        (string Title, string Detail, int StatusCode) details = exceptionType switch
+        {
+            CustomException customException =>
+            (
+                exceptionType.GetType().Name,
+                exceptionType.Message,
+                context.Response.StatusCode = (int)customException.StatusCode
+            ),
+            _ =>
+            (
+                exceptionType.GetType().Name,
+                exceptionType.Message,
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError
+            )
+        };
+
+        var problem = new ProblemDetailsContext
+        {
+            HttpContext = context,
+            ProblemDetails =
+            {
+                Title = details.Title,
+                Detail = details.Detail,
+                Status = details.StatusCode
+            }
+        };
+
+        if (app.Environment.IsDevelopment())
+            problem.ProblemDetails.Extensions.Add("exception",
+                exceptionHandlerFeature?.Error.ToString());
+
+        return problem;
+    }
+
     private static WebApplication UseSwaggerEndpoint(this WebApplication app)
     {
         app.UseSwagger();
@@ -88,7 +96,7 @@ public static class WebApplicationExtensions
         return app;
     }
 
-    public class CustomException : Exception
+    private class CustomException : Exception
     {
         public CustomException(
             string message,

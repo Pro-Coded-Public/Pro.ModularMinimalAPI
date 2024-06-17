@@ -2,26 +2,23 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Pro.Modular.Shared.Interfaces;
-using Pro.Modular.Shared.Models;
 
 namespace ExampleModule;
 
 public class Module : IModule
 {
-    public FileLocation settingsFile =>
-        new()
-        {
-            FileName = "exampleAppSettings.json",
-            Path = @"Modules/example/exampleAppSettings.json"
-        };
+    public string ModuleName => "CQRSModule";
 
-    public string ModuleName => "ExampleModule";
+    public string SettingsFileName => "cqrsModuleAppSettings.json";
 
-    public string SettingsFileName => "exampleAppSettings.json";
-
-    public WebApplicationBuilder RegisterModule(WebApplicationBuilder builder)
+    public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder)
     {
         return builder;
+    }
+
+    public WebApplication UseModuleMiddleware(WebApplication app)
+    {
+        return app;
     }
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

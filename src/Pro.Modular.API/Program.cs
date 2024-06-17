@@ -6,11 +6,12 @@ builder.DiscoverModules();
 builder.Host.ConfigureAppSettings();
 builder.BindOptions();
 builder.AddServices();
-builder.RegisterModules();
+builder.AddModuleServices();
 
 var app = builder.Build();
 
 app.UseMiddleware();
+app.UseModuleMiddleware();
 app.MapModuleEndpoints();
 
 app.Run();

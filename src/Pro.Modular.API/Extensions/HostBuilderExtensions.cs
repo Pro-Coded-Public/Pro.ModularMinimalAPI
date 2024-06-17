@@ -43,10 +43,5 @@ public static class HostBuilderExtensions
             .BindConfiguration("JwtOptions")
             .ValidateDataAnnotations()
             .ValidateOnStart();
-
-        serviceProvider.AddOptions<Logging>()
-            .BindConfiguration("Logging")
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
     }
 }
